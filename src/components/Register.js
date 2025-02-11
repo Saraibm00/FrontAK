@@ -11,7 +11,7 @@ const Register = ({updateState}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/api/register', { username, password });
+      const response = await axios.post(process.env.API_BACK+'/api/register', { username, password });
       localStorage.setItem('token', response.data.token);
       console.log(response.data.id);
       localStorage.setItem('id', response.data.id);

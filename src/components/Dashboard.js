@@ -11,7 +11,7 @@ const Dashboard = () => {
   const [totalRanking, setTotalRanking] = useState(0);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/tasks')
+    axios.get(process.env.API_BACK+'/api/tasks')
       .then(response => {
         const tasks = response.data;
         setTasks(tasks.filter(task => !task.usedOnce.includes(localStorage.getItem('id'))));
