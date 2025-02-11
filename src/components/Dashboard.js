@@ -9,9 +9,10 @@ const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [weeklyRanking, setWeeklyRanking] = useState(0);
   const [totalRanking, setTotalRanking] = useState(0);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
-    axios.get(process.env.API_BACK+'/api/tasks')
+    axios.get(`${apiUrl}/api/tasks`)
       .then(response => {
         const tasks = response.data;
         setTasks(tasks.filter(task => !task.usedOnce.includes(localStorage.getItem('id'))));
@@ -24,7 +25,7 @@ const Dashboard = () => {
   const reloadRanking = async () => {
     try {
       const id = localStorage.getItem('id');
-      const response = await axios.get(`http://localhost:5000/api/rankings/${id}`);
+      const response = await axios.get(`${apiUrl}/api/rankings/${id}`);
       const { weeklyTasksCompleted, weeklyRankings } = response.data;
 
       // Calcular el ranking semanal
@@ -40,7 +41,7 @@ const Dashboard = () => {
 
   const toggleTaskCompletion = async (taskId, isCompleted) => {
     if(isCompleted){
-      await axios.post(`http://localhost:5000/api/tasks/${taskId}/unComplete`, { userId: localStorage.getItem('id') })
+      await axios.post(`${apiUrl}/api/tasks/${taskId}/unComplete`, { userId: localStorage.getItem('id') })
       .then((response) => {
         const tasks = response.data;
         setTasks(tasks.filter(task => !task.usedOnce.includes(localStorage.getItem('id'))))
@@ -48,7 +49,7 @@ const Dashboard = () => {
       .catch(error => console.error('Error al completar la tarea:', error));
     }
     else{
-      await axios.post(`http://localhost:5000/api/tasks/${taskId}/complete`, { userId: localStorage.getItem('id') })
+      await axios.post(`${apiUrl}/api/tasks/${taskId}/complete`, { userId: localStorage.getItem('id') })
       .then((response) => {
         const tasks = response.data;
         setTasks(tasks.filter(task => !task.usedOnce.includes(localStorage.getItem('id'))))
