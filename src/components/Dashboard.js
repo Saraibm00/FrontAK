@@ -9,7 +9,10 @@ const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [weeklyRanking, setWeeklyRanking] = useState(0);
   const [totalRanking, setTotalRanking] = useState(0);
+  const [userGo, setUserGo] = useState([]);
+  const [userNoGo, setUserNoGo] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
+  const allowedId = ['67aa21e44df5374200071041', '67ab6bc9d3f1331bfa79f725', '67ab6f04d3f1331bfa79f75a'];
 
   useEffect(() => {
     axios.get(`${apiUrl}/api/tasks`)
@@ -20,7 +23,19 @@ const Dashboard = () => {
       .catch(error => console.error('Error al obtener las tareas:', error));
 
       reloadRanking();
+      fetchUsers();
   }, []);
+
+  // Función para obtener la lista de personas
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get(`${apiUrl}/api/users`);
+      setUserGo(response.data.userGo); // Guardamos la lista de personas que van
+      setUserNoGo(response.data.userNoGo); //Aqui las personas que no van
+    } catch (error) {
+      console.error('Error al obtener la lista de personas:', error);
+    }
+  };
 
   const reloadRanking = async () => {
     try {
@@ -147,6 +162,35 @@ const Dashboard = () => {
               ))}
             </ul>
           </div>
+
+          {/* Tabla de Personas (Visible solo si ID es 1) */}
+          {allowedId.includes(localStorage.getItem('id')) && (
+              <div className="mt-6">
+                <h2 className="text-xl font-bold mb-4 text-center text-indigo-600">Lista de Personas</h2>
+                <table className="min-w-full bg-white shadow-md rounded-xl overflow-hidden">
+                  <thead className="bg-indigo-600 text-white">
+                    <tr>
+                      <th className="py-3 px-6 text-left">Van a ir</th>
+                      <th className="py-3 px-6 text-left">Nombre</th>
+                      <th className="py-3 px-6 text-left">Total de Personas</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b">
+                      <td className="py-3 px-6">SÍ</td>
+                      <td className="py-3 px-6">{userGo}</td>
+                      <td className="py-3 px-6">{userGo.length}</td>
+                    </tr>
+                    <tr className="border-b">
+                      <td className="py-3 px-6">NO</td>
+                      <td className="py-3 px-6">{userNoGo}</td>
+                      <td className="py-3 px-6">{userNoGo.length}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            )}
+
         </div>
       </div>
     </div>
