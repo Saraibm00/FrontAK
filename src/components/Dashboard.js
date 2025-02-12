@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
 
-const COLORS = ['#4F46E5', '#E5E7EB']; // Colores para el gráfico de tarta
+const COLORS = ['#4F46E5', '#E5E7EB']; // Colores para el gráfico de tarta y del checkbox
 
 const Dashboard = () => {
 
@@ -138,7 +138,8 @@ const Dashboard = () => {
                       checked={task.completedBy.includes(localStorage.getItem('id'))}
                       onChange={() => toggleTaskCompletion(task._id, task.completedBy.includes(localStorage.getItem('id')))}
                       disabled={!task.isActive}
-                      className="h-6 w-6 text-teal-500 rounded-full focus:ring-0 focus:outline-none"
+                      className="h-6 w-6 text-indigo-600 rounded-full focus:ring-0 focus:outline-none"
+                      style={{ accentColor: COLORS[0] }}
                     />
                     <span className={`flex-1 ${task.completedBy.includes(localStorage.getItem('id')) ? 'line-through text-gray-500' : ''}`}>{task.title}</span>
                   </label>
