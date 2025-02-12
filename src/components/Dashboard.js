@@ -163,33 +163,38 @@ const Dashboard = () => {
             </ul>
           </div>
 
-          {/* Tabla de Personas (Visible solo si ID es 1) */}
+          {/* Tabla de Personas (Visible solo si ID está permitido) */}
           {allowedId.includes(localStorage.getItem('id')) && (
-              <div className="mt-6">
-                <h2 className="text-xl font-bold mb-4 text-center text-indigo-600">Lista de Personas</h2>
+            <div className="mt-6">
+              <h2 className="text-xl font-bold mb-4 text-center text-indigo-600">Lista de Personas</h2>
+
+              {/* Contenedor para hacerlo responsivo */}
+              <div className="overflow-x-auto">
                 <table className="min-w-full bg-white shadow-md rounded-xl overflow-hidden">
-                  <thead className="bg-indigo-600 text-white">
+                  <thead style={{ backgroundColor: COLORS[0] }} className="text-white">
                     <tr>
-                      <th className="py-3 px-6 text-left">Van a ir</th>
-                      <th className="py-3 px-6 text-left">Nombre</th>
-                      <th className="py-3 px-6 text-left">Total de Personas</th>
+                      <th className="py-3 px-4 text-left text-sm md:text-base">Van a ir</th>
+                      <th className="py-3 px-4 text-left text-sm md:text-base">Nombre</th>
+                      <th className="py-3 px-4 text-left text-sm md:text-base">Total de Personas</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr className="border-b">
-                      <td className="py-3 px-6">SÍ</td>
-                      <td className="py-3 px-6">{userGo}</td>
-                      <td className="py-3 px-6">{userGo.length}</td>
+                      <td className="py-2 px-4 text-sm md:text-base">SÍ</td>
+                      <td className="py-2 px-4 text-sm md:text-base">{userGo}</td>
+                      <td className="py-2 px-4 text-sm md:text-base">{userGo.length}</td>
                     </tr>
                     <tr className="border-b">
-                      <td className="py-3 px-6">NO</td>
-                      <td className="py-3 px-6">{userNoGo}</td>
-                      <td className="py-3 px-6">{userNoGo.length}</td>
+                      <td className="py-2 px-4 text-sm md:text-base">NO</td>
+                      <td className="py-2 px-4 text-sm md:text-base">{userNoGo}</td>
+                      <td className="py-2 px-4 text-sm md:text-base">{userNoGo.length}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-            )}
+            </div>
+          )}
+
 
         </div>
       </div>
