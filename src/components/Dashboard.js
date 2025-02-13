@@ -12,7 +12,7 @@ const Dashboard = () => {
   const [userGo, setUserGo] = useState([]);
   const [userNoGo, setUserNoGo] = useState([]);
   const apiUrl = process.env.REACT_APP_API_URL;
-  const allowedId = ['67aa21e44df5374200071041', '67ab6bc9d3f1331bfa79f725', '67ab6f04d3f1331bfa79f75a'];
+  const allowedId = ['67aa21e44df5374200071041', '67ab6bc9d3f1331bfa79f725', '67ab6f04d3f1331bfa79f75a', '67ad0b2b79b60513d805d1ef'];
 
   useEffect(() => {
     axios.get(`${apiUrl}/api/tasks`)
